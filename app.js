@@ -1,3 +1,26 @@
+var db = mongoose.connection;
+
+// Error handler
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Success handler
+db.once('open', function() {
+  console.log('Connection to DB succeeded');
+});
+
+// 🛠️ Add these new lines to connect MongoDB
+require('dotenv').config(); // Load environment variables
+const mongoose = require('mongoose'); // Load Mongoose library
+
+// Connect to MongoDB Atlas
+
+const connectionString = process.env.MONGO_CON; 
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
