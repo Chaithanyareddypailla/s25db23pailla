@@ -10,7 +10,8 @@ var logger = require('morgan');
 
 // 🛠️ 3. MongoDB Setup
 const mongoose = require('mongoose');
-var Costume = require("./models/costume");
+var Chimes = require("./models/chimes");
+
 
 // 🛠️ 4. Create Express App
 var app = express();   // <<< Now it's safe to use app
@@ -29,22 +30,32 @@ db.once('open', function() {
   console.log('Connection to DB succeeded');
 });
 
-// 🛠️ 7. Seeding Function
+// We can seed the collection if needed on server start
 async function recreateDB() {
-  await Costume.deleteMany();  // Delete all old costumes
+  // Delete everything
+  await Chimes.deleteMany();
 
-  const costumes = [
-    { costume_type: "Ghost", size: "Large", cost: 15.4 },
-    { costume_type: "Vampire", size: "Medium", cost: 25.0 },
-    { costume_type: "Witch", size: "Small", cost: 18.0 }
-  ];
+  // Create one instance
+  let instance1 = new Chimes({
+    chime_type: "ghost", 
+    size: "large", 
+    cost: 15.4
+  });
 
-  await Costume.insertMany(costumes);
-  console.log('Database seeded with costumes');
+  instance1.save()
+    .then(doc => {
+      console.log("First chimes object saved:", doc);
+    })
+    .catch(err => {
+      console.error(err);
+    });
 }
 
-const reseed = true;
-if (reseed) { recreateDB(); }
+// Trigger the reseed
+let reseed = true;
+if (reseed) {
+  recreateDB();
+}
 
 // 🛠️ 8. Middleware
 app.use(logger('dev'));
