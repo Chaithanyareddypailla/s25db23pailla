@@ -50,12 +50,14 @@ var usersRouter = require('./routes/users');
 var chimesRouter = require('./routes/chimes');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var resourceRouter = require('./routes/resource');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/chimes', chimesRouter);
 app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
+app.use('/resource', resourceRouter);
 
 // 🛠️ 11. Error Handling
 app.use(function (req, res, next) {
