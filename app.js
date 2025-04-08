@@ -32,24 +32,21 @@ db.once('open', function() {
 
 // We can seed the collection if needed on server start
 async function recreateDB() {
-  // Delete everything
+  // Delete all old chimes
   await Chimes.deleteMany();
 
-  // Create one instance
-  let instance1 = new Chimes({
-    chime_type: "ghost", 
-    size: "large", 
-    cost: 15.4
-  });
+  // New chime data based on your Pug template
+  const chimesData = [
+    { chime_type: "Wind Chime", material: "Bamboo", size: "Medium", cost: 15 },
+    { chime_type: "Temple Bell", material: "Brass", size: "Large", cost: 30 },
+    { chime_type: "Zen Chime", material: "Crystal", size: "Small", cost: 25 }
+  ];
 
-  instance1.save()
-    .then(doc => {
-      console.log("First chimes object saved:", doc);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  // Insert into MongoDB
+  await Chimes.insertMany(chimesData);
+  console.log("Chimes inserted successfully!");
 }
+
 
 // Trigger the reseed
 let reseed = true;
