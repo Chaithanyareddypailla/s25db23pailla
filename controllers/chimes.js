@@ -1,4 +1,4 @@
-var Chimes = require("./models/chimes");
+var Chimes = require("./controllers/chimes");
 // List of all Costumes
 exports.chimes_list = function(req, res) {
  res.send('NOT IMPLEMENTED: chimes list');
