@@ -31,27 +31,44 @@ db.once('open', function() {
 });
 
 // We can seed the collection if needed on server start
+// We can seed the collection if needed on server start
 async function recreateDB() {
-  // Delete all old chimes
+  // Delete everything
   await Chimes.deleteMany();
 
-  // New chime data based on your Pug template
-  const chimesData = [
-    { chime_type: "Wind Chime", material: "Bamboo", size: "Medium", cost: 15 },
-    { chime_type: "Temple Bell", material: "Brass", size: "Large", cost: 30 },
-    { chime_type: "Zen Chime", material: "Crystal", size: "Small", cost: 25 }
-  ];
+  // Create and save instances one by one
+  let instance1 = new Chimes({
+    chime_type: "Wind Chime",
+    material: "Bamboo",
+    size: "Medium",
+    cost: 15
+  });
 
-  // Insert into MongoDB
-  await Chimes.insertMany(chimesData);
-  console.log("Chimes inserted successfully!");
-}
+  instance1.save().then(doc => {
+    console.log("First object saved:", doc);
+  }).catch(err => {
+    console.error(err);
+  });
 
+  let instance2 = new Chimes({
+    chime_type: "Temple Bell",
+    material: "Brass",
+    size: "Large",
+    cost: 30
+  });
 
-// Trigger the reseed
-let reseed = true;
-if (reseed) {
-  recreateDB();
+  instance2.save().then(doc => {
+    console.log("Second object saved:", doc);
+  }).catch(err => {
+    console.error(err);
+  });
+
+  let instance3 = new Chimes({
+    chime_type: "Zen Chime",
+    material: "Crystal",
+    size: "Small",
+    cost: 25
+  });
 }
 
 // 🛠️ 8. Middleware
