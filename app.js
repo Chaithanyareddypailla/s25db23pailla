@@ -38,12 +38,19 @@ async function recreateDB() {
 // Only reseed if needed
 const reseed = true;
 if (reseed) { recreateDB(); }
+
+// 🛠️ Create Express App
+var app = express();   // <<< YOU NEED THIS BEFORE using app.use()
+
+// MongoDB connect code comes here...
+
 // 🛠️ Then safely use middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Routers will be added later here (in next parts of the assignment)
 
 app.listen(3000, () => {
