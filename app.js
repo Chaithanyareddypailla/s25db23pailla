@@ -26,50 +26,12 @@ mongoose.connect(connectionString, {
 // 🛠️ 6. Handle MongoDB Connection Events
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   console.log('Connection to DB succeeded');
 });
 
 // We can seed the collection if needed on server start
-// We can seed the collection if needed on server start
-async function recreateDB() {
-  // Delete everything
-  await Chimes.deleteMany();
 
-  // Create and save instances one by one
-  let instance1 = new Chimes({
-    chime_type: "Wind Chime",
-    material: "Bamboo",
-    size: "Medium",
-    cost: 15
-  });
-
-  instance1.save().then(doc => {
-    console.log("First object saved:", doc);
-  }).catch(err => {
-    console.error(err);
-  });
-
-  let instance2 = new Chimes({
-    chime_type: "Temple Bell",
-    material: "Brass",
-    size: "Large",
-    cost: 30
-  });
-
-  instance2.save().then(doc => {
-    console.log("Second object saved:", doc);
-  }).catch(err => {
-    console.error(err);
-  });
-
-  let instance3 = new Chimes({
-    chime_type: "Zen Chime",
-    material: "Crystal",
-    size: "Small",
-    cost: 25
-  });
-}
 
 // 🛠️ 8. Middleware
 app.use(logger('dev'));
@@ -96,11 +58,11 @@ app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
 
 // 🛠️ 11. Error Handling
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -110,3 +72,43 @@ app.use(function(err, req, res, next) {
 
 // 🛠️ 12. Export App
 module.exports = app;
+// We can seed the collection if needed on  server start
+async function recreateDB() {
+  // Delete everything
+  await Chimes.deleteMany();
+  let instance1 = new
+    Chimes({
+      Chimes_type: "Wind Chimet", material: 'Bamboo',
+      cost: 15
+    });
+  instance1.save().then(doc => {
+    console.log("First object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
+  let instance2 = new
+    Chimes({
+      Chimes_type: "Temple Bell", size: 'Brass',
+      cost: 30
+    });
+  instance2.save().then(doc => {
+    console.log("Second object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
+  let instance3 = new
+    Chimes({
+      Chimes_type: "Zen Chime", size: 'Crystal',
+      cost: 25
+    });
+  instance3.save().then(doc => {
+    console.log("Third object saved")
+  }
+  ).catch(err => {
+    console.error(err)
+  });
+}
+let reseed = true;
+if (reseed) { recreateDB(); }
