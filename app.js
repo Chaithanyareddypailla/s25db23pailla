@@ -10,7 +10,7 @@ var logger = require('morgan');
 
 // 🛠️ 3. MongoDB Setup
 const mongoose = require('mongoose');
-var Chimes = require("./models/chimes");
+
 
 
 // 🛠️ 4. Create Express App
@@ -50,6 +50,7 @@ var usersRouter = require('./routes/users');
 var chimesRouter = require('./routes/chimes');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var Chimes = require("./models/chimes");
 var resourceRouter = require('./routes/resource');
 
 app.use('/', indexRouter);
@@ -80,8 +81,7 @@ async function recreateDB() {
   await Chimes.deleteMany();
   let instance1 = new
     Chimes({
-      Chimes_type: "Wind Chimet", material: 'Bamboo',
-      cost: 15
+      Chimes_type: "Wind Chimet", material: 'Bamboo', size:'3', cost: 15
     });
   instance1.save().then(doc => {
     console.log("First object saved")
@@ -89,10 +89,10 @@ async function recreateDB() {
   ).catch(err => {
     console.error(err)
   });
+
   let instance2 = new
     Chimes({
-      Chimes_type: "Temple Bell", size: 'Brass',
-      cost: 30
+      Chimes_type: "Temple Bell", material:'Brass', size: '5', cost: 30
     });
   instance2.save().then(doc => {
     console.log("Second object saved")
@@ -100,10 +100,10 @@ async function recreateDB() {
   ).catch(err => {
     console.error(err)
   });
+
   let instance3 = new
     Chimes({
-      Chimes_type: "Zen Chime", size: 'Crystal',
-      cost: 25
+      Chimes_type: "Zen Chime", material: 'Crystal', size: '4', cost: 25
     });
   instance3.save().then(doc => {
     console.log("Third object saved")

@@ -6,9 +6,9 @@ var chimes_controller = require('../controllers/chimes');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
-/// COSTUME ROUTES ///
+/// Chimes ROUTES ///
 // POST request for creating a chimes. 
-router.post('/chimes', chimes_controller.chimes_chimes_post);
+router.post('/chimes', chimes_controller.chimes_create_post);
 // DELETE request to delete chimes.
 router.delete('/chimes/:id', chimes_controller.chimes_delete);
 // PUT request to update chimes.

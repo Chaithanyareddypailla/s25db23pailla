@@ -1,21 +1,29 @@
-var Chimes = require("./controllers/chimes");
-// List of all Costumes
-exports.chimes_list = function(req, res) {
- res.send('NOT IMPLEMENTED: chimes list');
-};
-// for a specific Costume.
+var Chimes = require('../models/chimes');
+
+// List of all chime
+exports.chimes_list = async function(req, res) {
+    try{
+    theChimes = await Chimes.find();
+    res.send(theChimes);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    } 
+   }
+// for a specific chimes.
 exports.chimes_detail = function(req, res) {
  res.send('NOT IMPLEMENTED: chimes detail: ' + req.params.id);
 };
-// Handle Costume create on POST.
+// Handle chimes create on POST.
 exports.chimes_create_post = function(req, res) {
  res.send('NOT IMPLEMENTED: chimes create POST');
 };
-// Handle Costume delete from on DELETE.
+// Handle chimes delete from on DELETE.
 exports.chimes_delete = function(req, res) {
- res.send('NOT IMPLEMENTED:chimes delete DELETE ' + req.params.id);
+ res.send('NOT IMPLEMENTED: chimes delete DELETE ' + req.params.id);
 };
-// Handle Costume update form on PUT.
+// Handle chimes update form on PUT.
 exports.chimes_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: chimes update PUT' + req.params.id);
 };
