@@ -6,4 +6,8 @@ const chimesSchema = mongoose.Schema({
   cost: Number
 });
 
-module.exports = mongoose.model("C Screen shot 5 of response for /resource.himes", chimesSchema);
+module.exports = mongoose.model("chimes", chimesSchema);
+
+
+
+
