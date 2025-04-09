@@ -7,4 +7,10 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
+var express = require('express');
+const chimes_controlers= require('../controllers/chimes');
+var router = express.Router();
+/* GET chimes */
+router.get('/', chimes_controllers.chimes_view_all_Page );
+module.exports = router;
 
