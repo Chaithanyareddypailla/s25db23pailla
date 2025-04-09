@@ -52,6 +52,8 @@ var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
 var Chimes = require("./models/chimes");
 var resourceRouter = require('./routes/resource');
+const chimes_controllers = require('../controllers/chimes_controllers');
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
