@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 var chimesRouter = require('./routes/chimes');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
-var chimes = require("./models/chimes");
+var Chimes = require("./models/chimes");
 var resourceRouter = require('./routes/resource');
 
 
@@ -34,12 +34,12 @@ app.use('/resource', resourceRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -60,8 +60,9 @@ mongoose.connect(connectionString);
 var db = mongoose.connection;
 //Bind connection to error event 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
+db.once("open", function () {
+  console.log("Connection to DB succeeded")
+});
 
 // We can seed the collection if needed on  server start
 async function recreateDB() {
@@ -80,7 +81,7 @@ async function recreateDB() {
 
   let instance2 = new
     Chimes({
-      Chimes_: "Temple Bell", material:'Brass', cost: 30
+      Chimes_: "Temple Bell", material: 'Brass', cost: 30
     });
   instance2.save().then(doc => {
     console.log("Second object saved")

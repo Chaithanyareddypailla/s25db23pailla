@@ -10,9 +10,9 @@ module.exports = router;
 
 var express = require('express');
 const chimes_controlers = require('../controllers/chimes');
+
 var router = express.Router();
 /* GET chimes */
 router.get('/', chimes_controlers.chimes_view_all_Page);
 module.exports = router;
 
-// GET request for one chimes.
