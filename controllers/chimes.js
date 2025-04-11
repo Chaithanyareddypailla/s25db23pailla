@@ -12,9 +12,20 @@ exports.chimes_list = async function (req, res) {
     }
 }
 // for a specific chimes.
-exports.chimes_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: chimes detail: ' + req.params.id);
-};
+// exports.chimes_detail = function (req, res) {
+//     res.send('NOT IMPLEMENTED: chimes detail: ' + req.params.id);
+// };
+// for a specific Chimes.
+exports.chimes_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Chimes.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+}
 // Handle chimes create on POST.
 //exports.chimes_create_post = function (req, res) {
 //res.send('NOT IMPLEMENTED: chimes create POST');
@@ -45,17 +56,34 @@ exports.chimes_create_post = async function (req, res) {
 exports.chimes_delete = function (req, res) {
     res.send('NOT IMPLEMENTED: chimes delete DELETE ' + req.params.id);
 };
-// Handle chimes update form on PUT.
-exports.chimes_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: chimes update PUT' + req.params.id);
-};
+// Handle Chimes update form on PUT.
+exports.chimes_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body 
+   ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await Chimes.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.chimes_type) 
+    toUpdate.chimes_type = req.body.chimes_type;
+    if(req.body.material) toUpdate.material = req.body.material;
+    if(req.body.cost) toUpdate.cost = req.body.cost;
+    
+   let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id} 
+   failed`);
+    }
+   };
 
 // VIEWS
 // Handle a show all view
 exports.chimes_view_all_Page = async function (req, res) {
     try {
         theChimes = await Chimes.find();
-        res.render('chimes', { title: 'Costume Search Results', results: theChimes });
+        res.render('chimes', { title: 'Chimes Search Results', results: theChimes });
     }
     catch (err) {
         res.status(500);
@@ -63,16 +91,7 @@ exports.chimes_view_all_Page = async function (req, res) {
     }
 };
 
-// for a specific Chimes.
-exports.chimes_detail = async function (req, res) {
-    console.log("detail" + req.params.id)
-    try {
-        result = await chimes.findById(req.params.id)
-        res.send(result)
-    } catch (error) {
-        res.status(500)
-        res.send(`{"error": document for id ${req.params.id} not found`);
-    }
-}
+
+
 
 

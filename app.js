@@ -81,7 +81,7 @@ async function recreateDB() {
 
   let instance2 = new
     Chimes({
-      Chimes_: "Temple Bell", material: 'Brass', cost: 30
+      Chimes_: "Temple Bell", material: 'Brass', cost: 40
     });
   instance2.save().then(doc => {
     console.log("Second object saved")
