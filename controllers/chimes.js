@@ -53,9 +53,24 @@ exports.chimes_create_post = async function (req, res) {
 };
 
 // Handle chimes delete from on DELETE.
-exports.chimes_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: chimes delete DELETE ' + req.params.id);
-};
+//exports.chimes_delete = function (req, res) {
+   // res.send('NOT IMPLEMENTED: chimes delete DELETE ' + req.params.id);
+//};
+
+// Handle Chimes delete on DELETE.
+exports.chimes_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Chimes.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   };
+   
+
 // Handle Chimes update form on PUT.
 exports.chimes_update_put = async function(req, res) {
     console.log(`update on id ${req.params.id} with body 
@@ -89,7 +104,22 @@ exports.chimes_view_all_Page = async function (req, res) {
         res.status(500);
         res.send(`{"error": ${err}}`);
     }
+
 };
+
+// Handle a show one view with id specified by query
+exports.chimes_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await Chimes.findById( req.query.id)
+    res.render('chimesdetail', 
+   { title: 'Chimes Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
 
 
 
