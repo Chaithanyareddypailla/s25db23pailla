@@ -1,26 +1,21 @@
-extends layout
+extends layout 
 
 block content
   h1= title
-  
   - let chimesid = toShow._id
-  - let chimes_name = toShow.chimes_type
-  - let chimesmaterial = toShow.material
-  - let chimescost = toShow.cost
-
+  - let chimes_name = toShow.chimes_name
+  - let material = toShow.material
+  - let cost = toShow.cost
   div
     div.row
       div(class='chimesAttr mr-3') Chimes ID is:
       div #{chimesid}
-
     div.row
       div(class='chimesAttr mr-3') Chimes name is:
       div #{chimes_name}
-
     div.row
       div(class='chimesAttr mr-3') Chimes material is:
-      div #{chimesmaterial}
-
+      div #{material}
     div.row
       div(class='chimesAttr mr-3') Chimes Cost is:
-      div #{chimescost}
+      div #{cost}

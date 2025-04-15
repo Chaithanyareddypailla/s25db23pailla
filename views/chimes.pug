@@ -1,18 +1,28 @@
 extends layout
 
 block content
-  h2 Search Results for Chimes
+  h2 Search Results for 
+  br
+  a.btn.btn-success(href="/chimes/create") Create chimes  
+  br
 
   - let items = results
   div.container-fluid
     div.row
       each chimes, index in items
-        div.col-sm-3.bg-light.p-3.m-2.rounded.shadow.text-center(
+        div.col-sm-3.bg-info.text-white.p-3.m-2.rounded.shadow.text-center(
           onclick=`buy(${index})`, style="cursor: pointer;"
         )
-          h5 #{chimes.name}
+          h5 #{chimes.chimes_name}
+          p chimes_name: #{chimes.chimes_name}
           p Material: #{chimes.material}
           p Cost: $#{chimes.cost}
+          div.mt-2
+            button.btn.btn-warning.ml-1(onclick=destination) 🛠️ Update
+            button.btn.btn-primary.ml-1(onclick=destinationdetail) 📄 Detail
+            button.btn.btn-danger.ml-1(onclick=destinationdelete) ❌ Delete
+          br
+          br
 
   script.
     function buy(index) {

@@ -1,0 +1,31 @@
+extends layout
+block content
+  h1= title
+  form(id='chimesForm', action="/resource/chimes", method="POST")
+    div.form-group
+      label.chimesAttr(for='chimes_name') Chimes name
+      input#chimes_name(type='text', name='chimes_name')
+    div.form-group
+      label.chimesAttr(for='material') Chimes material
+      input#material(type='text', name='material')
+    div.form-group
+      label.chimesAttr(for='cost') Chimes cost
+      input#cost(type='number', name='cost')
+    input(type="submit")
+  script.
+    document.forms['chimesForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error )
+      });  
+    });
