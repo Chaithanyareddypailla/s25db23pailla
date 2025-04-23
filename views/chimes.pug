@@ -1,22 +1,38 @@
 extends layout
 
 block content
-  h2 Search Results for 
+  h2.text-center.text-primary.mt-3 Search Results for 
   br
-  a.btn.btn-success(href="/chimes/create") Create chimes  
+  a.btn.btn-success.mb-3.ml-3(href="/chimes/create") Create chimes  
   br
 
   - let items = results
-  div(class="container-fluid")
-    div(class="row m-1")
+  div.container-fluid
+    div.row.m-1
       each chimes, index in items
-        - let destination = `dispatch("/chimes/update?id=${chimes._id}")`
-        div(class="row-sm-2 m-1") Item #{chimes.chimes_name}(#{chimes.material}) is #{chimes.cost}
-          button.btn.btn-primary.ml-1(onclick=destination) Update
+        - let updatePath = `dispatch("/chimes/update?id=${chimes._id}")`
+        - let detailPath = `dispatch("/chimes/${chimes._id}")`
+        - let deletePath = `dispatch("/chimes/delete?id=${chimes._id}")`
+
+        div.row-sm-2.m-1.p-2.border.rounded.bg-light.shadow-sm
+          span.font-weight-bold.text-dark Item #{chimes.chimes_name}(#{chimes.material}) is $#{chimes.cost}
+          button.btn.btn-primary.ml-2(
+            onclick=updatePath, 
+            style="margin-left: 10px; background-color: #0d6efd; border-color: #0d6efd;"
+          ) Update
+          button.btn.btn-info.ml-2(
+            onclick=detailPath, 
+            style="background-color: #17a2b8; border-color: #17a2b8;"
+          ) Details
+          button.btn.btn-danger.ml-2(
+            onclick=deletePath, 
+            style="background-color: #dc3545; border-color: #dc3545;"
+          ) Delete
+
         div.col-sm-3.bg-info.text-white.p-3.m-2.rounded.shadow.text-center(
           onclick=`buy(${index})`, style="cursor: pointer;"
         )
-          h5 #{chimes.chimes_name}
+          h5.font-weight-bold #{chimes.chimes_name}
           p chimes_name: #{chimes.chimes_name}
           p Material: #{chimes.material}
           p Cost: $#{chimes.cost}

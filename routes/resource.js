@@ -17,24 +17,4 @@ router.put('/chimes/:id', chimes_controller.chimes_update_put);
 router.get('/chimes/:id', chimes_controller.chimes_detail);
 // GET request for list of all chimesitems.
 router.get('/chimes', chimes_controller.chimes_list);
-router.get('/login', function(req, res) {
-    res.render('login', { title: 'Chimes App Login', user : req.user });
-   });
-   router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
-   });
-   router.get('/logout', function(req, res) {
-    req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-    });
-   });
-   router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
-   });
-   module.exports = router;
-   router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
-   });
-   module.exports = router;
 module.exports = router;
