@@ -1,19 +1,11 @@
-extends layout.pug
-
+extends layout
 block content
-  h2 Welcome to My Express App
-
-  button(type="button", class="btn btn-primary", onclick="faster()") Press Me!
-  div#faster.mt-3 Add in extra
-
-  script.
-    let value = 1;
-    let amt = 2;
-
-    function faster() {
-      amt *= 2;
-      value += amt;
-      document.getElementById("faster").textContent = `Faster ${value} times ${amt}`;
-    }
-
-  a(href="/chimes", class="btn btn-link mt-3") View Chimes Search Results
+ if (!user)
+ a(href="/login") Login
+ br
+ a(href="/register") Register
+ if (user)
+ p You are currently logged in as #{user.username}
+ a(href="/chimes") Take me to chimes
+ br
+ a(href="/logout") Logout

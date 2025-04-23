@@ -7,9 +7,12 @@ block content
   br
 
   - let items = results
-  div.container-fluid
-    div.row
+  div(class="container-fluid")
+    div(class="row m-1")
       each chimes, index in items
+        - let destination = `dispatch("/chimes/update?id=${chimes._id}")`
+        div(class="row-sm-2 m-1") Item #{chimes.chimes_name}(#{chimes.material}) is #{chimes.cost}
+          button.btn.btn-primary.ml-1(onclick=destination) Update
         div.col-sm-3.bg-info.text-white.p-3.m-2.rounded.shadow.text-center(
           onclick=`buy(${index})`, style="cursor: pointer;"
         )
@@ -17,18 +20,13 @@ block content
           p chimes_name: #{chimes.chimes_name}
           p Material: #{chimes.material}
           p Cost: $#{chimes.cost}
-          div.mt-2
-            button.btn.btn-warning.ml-1(onclick=destination) 🛠️ Update
-            button.btn.btn-primary.ml-1(onclick=destinationdetail) 📄 Detail
-            button.btn.btn-danger.ml-1(onclick=destinationdelete) ❌ Delete
-          br
-          br
 
   script.
     function buy(index) {
       alert("You purchased item " + index);
     }
 
-
-          
-
+  script.
+    function dispatch(path){
+      window.location.href = path;
+    }
